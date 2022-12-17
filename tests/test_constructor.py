@@ -1,42 +1,23 @@
-from selenium.webdriver.common.by import By
-from selenium import webdriver
-from selenium.webdriver.support import expected_conditions
-from selenium.webdriver.support.wait import WebDriverWait
+from locators import Locators
 
 
-def test_constructor_rolls_move_to_rolls():
-    driver = webdriver.Chrome()
+def test_constructor_rolls_move_to_rolls(driver):
     driver.get("https://stellarburgers.nomoreparties.site/")
-    driver.find_element(By.XPATH, './/*[@id="root"]/div/main/section[1]/div[1]/div[3]/span').click()
-    WebDriverWait(driver, 5).until(expected_conditions.visibility_of_element_located((By.XPATH, './/*[@id="root"]/div'
-                                                                                                '/main/section['
-                                                                                                '1]/div[2]/h2[3]')))
-    driver.find_element(By.XPATH, './/*[@id="root"]/div/main/section[1]/div[1]/div[1]/span').click()
-    WebDriverWait(driver, 3).until(expected_conditions.visibility_of_element_located((By.XPATH, './/*[@id="root"]/div'
-                                                                                                '/main/section['
-                                                                                                '1]/div[2]/h2[1]')))
-    assert driver.find_element(By.XPATH, './/*[@id="root"]/div/main/section[1]/div[2]/h2[1]').text == \
-           'Булки'
-    driver.quit()
+    driver.find_elements(*Locators.button_tab)[2].click()
+    driver.find_element(*Locators.button_tab).click()
+    x = driver.find_elements(*Locators.button_tab)
+    assert 'tab_tab_type_current' in x[0].get_attribute("class")
 
 
-def test_constructor_sauce_move_to_sauce():
-    driver = webdriver.Chrome()
+def test_constructor_sauce_move_to_sauce(driver):
     driver.get("https://stellarburgers.nomoreparties.site/")
-    driver.find_element(By.XPATH, './/*[@id="root"]/div/main/section[1]/div[1]/div[2]/span').click()
-    WebDriverWait(driver, 5).until(expected_conditions.visibility_of_element_located(
-        (By.XPATH, './/*[@id="root"]/div/main/section[1]/div[2]/h2[2]')))
-    assert driver.find_element(By.XPATH, './/*[@id="root"]/div/main/section[1]/div[2]/h2[2]').text == \
-           'Соусы'
-    driver.quit()
+    driver.find_elements(*Locators.button_tab)[1].click()
+    x = driver.find_elements(*Locators.button_tab)
+    assert 'tab_tab_type_current' in x[1].get_attribute("class")
 
 
-def test_constructor_toppings_move_to_toppings():
-    driver = webdriver.Chrome()
+def test_constructor_toppings_move_to_toppings(driver):
     driver.get("https://stellarburgers.nomoreparties.site/")
-    driver.find_element(By.XPATH, './/*[@id="root"]/div/main/section[1]/div[1]/div[3]/span').click()
-    WebDriverWait(driver, 5).until(expected_conditions.visibility_of_element_located(
-        (By.XPATH, './/*[@id="root"]/div/main/section[1]/div[2]/h2[3]')))
-    assert driver.find_element(By.XPATH, './/*[@id="root"]/div/main/section[1]/div[2]/h2[3]').text == \
-           'Начинки'
-    driver.quit()
+    driver.find_elements(*Locators.button_tab)[2].click()
+    x = driver.find_elements(*Locators.button_tab)
+    assert 'tab_tab_type_current' in x[2].get_attribute("class")
